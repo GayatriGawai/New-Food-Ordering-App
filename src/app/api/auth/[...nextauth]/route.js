@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import { User } from '../../../models/User';
 import bcrypt from 'bcrypt';
 
-const handler = NextAuth({
+export const authOptions = {
     secret: process.env.SECRET,
     adapter: MongoDBAdapter(clientPromise),
     providers: [
@@ -44,6 +44,8 @@ const handler = NextAuth({
             },
         }),
     ],
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
