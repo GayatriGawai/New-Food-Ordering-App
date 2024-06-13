@@ -9,6 +9,9 @@ module.exports = {
         extend: {
             colors: {
                 primary: '#0047AB',
+                success: '#34D399', //bg-green-400
+                danger: ' #DC2626', //bg-red-600
+                warning: '#F59E0B', //bg-yellow-500
             },
             screens: {
                 tablet: '640px',
