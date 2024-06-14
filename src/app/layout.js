@@ -6,7 +6,7 @@ import { AppProvider } from '../components/AppContext';
 const roboto = Tinos({ subsets: ['latin'], weight: '400' });
 
 export const metadata = {
-    title: 'ST Pizza',
+    title: 'OUT',
     description: 'demo project for cafe',
 };
 

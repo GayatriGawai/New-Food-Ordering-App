@@ -3,6 +3,9 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+
+import UserTabs from '../../components/layout/UserTabs';
 
 export default function ProfilePage() {
     const session = useSession();
@@ -15,6 +18,7 @@ export default function ProfilePage() {
     const [postalCode, setPostalCode] = useState('');
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const { status } = session;
 
@@ -29,6 +33,7 @@ export default function ProfilePage() {
                     setPostalCode(data.postalCode);
                     setCity(data.city);
                     setCountry(data.country);
+                    setIsAdmin(data.admin);
                 });
             });
         }
@@ -43,6 +48,7 @@ export default function ProfilePage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: userName,
+                phone,
                 streetAddress,
                 postalCode,
                 city,
@@ -64,10 +70,12 @@ export default function ProfilePage() {
         return redirect('/login');
     }
     const userImage = session.data.user.image;
+    console.log(isAdmin);
 
     return (
         <section className="mt-8">
-            <h1 className="text-center text-primary text-4xl font-semibold mb-4">
+            <UserTabs isAdmin={isAdmin} />
+            <h1 className="text-center text-primary text-4xl mt-8 font-semibold mb-4">
                 Profile
             </h1>
             <div className="max-w-md mx-auto">
@@ -94,12 +102,14 @@ export default function ProfilePage() {
                         </div>
                     </div>
                     <form className="grow" onSubmit={handleSubmit}>
+                        <label>Name</label>
                         <input
                             type="text"
                             placeholder="First and last name"
                             value={userName}
                             onChange={(e) => setUserName(e.target.value)}
                         />
+                        <label>Email</label>{' '}
                         <p className="text-xs text-red-500 italic">
                             *email address can&apos;t be changed
                         </p>
@@ -108,12 +118,14 @@ export default function ProfilePage() {
                             value={session.data.user.email}
                             disabled={true}
                         />
+                        <label>Phone number</label>
                         <input
                             type="tel"
                             placeholder="Phone number"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                         />
+                        <label>Street address</label>
                         <input
                             type="text"
                             placeholder="Street address"
@@ -121,19 +133,28 @@ export default function ProfilePage() {
                             onChange={(e) => setStreetAddress(e.target.value)}
                         />
                         <div className="flex gap-4">
-                            <input
-                                type="text"
-                                placeholder="Postal Code"
-                                value={postalCode}
-                                onChange={(e) => setPostalCode(e.target.value)}
-                            />
-                            <input
-                                type="text"
-                                placeholder="City"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                            />
+                            <div>
+                                <label>Postal Code</label>
+                                <input
+                                    type="text"
+                                    placeholder="Postal Code"
+                                    value={postalCode}
+                                    onChange={(e) =>
+                                        setPostalCode(e.target.value)
+                                    }
+                                />
+                            </div>
+                            <div>
+                                <label>City</label>
+                                <input
+                                    type="text"
+                                    placeholder="City"
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                />
+                            </div>
                         </div>
+                        <label>Country</label>
                         <input
                             type="text"
                             placeholder="Country"
