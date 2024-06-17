@@ -3,7 +3,8 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import UserTabs from '../../components/layout/UserTabs';
 
@@ -12,6 +13,7 @@ export default function ProfilePage() {
     const [userName, setUserName] = useState('');
     const [profile, setProfile] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [profileFetched, setProfileFetched] = useState(false);
 
     const [phone, setPhone] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
@@ -34,6 +36,8 @@ export default function ProfilePage() {
                     setCity(data.city);
                     setCountry(data.country);
                     setIsAdmin(data.admin);
+
+                    setProfileFetched(true);
                 });
             });
         }
@@ -43,6 +47,7 @@ export default function ProfilePage() {
         e.preventDefault();
         setProfile(false);
         setSaving(true);
+        toast.info('Saving...');
         const response = await fetch('/api/profile', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -59,10 +64,13 @@ export default function ProfilePage() {
 
         if (response.ok) {
             setProfile(true);
+            toast.success('Profile saved!');
+        } else {
+            toast.error('Failed to save profile.');
         }
     }
 
-    if (status === 'loading') {
+    if (status === 'loading' || !profileFetched) {
         return 'Loading...';
     }
 
@@ -74,33 +82,33 @@ export default function ProfilePage() {
 
     return (
         <section className="mt-8">
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <UserTabs isAdmin={isAdmin} />
             <h1 className="text-center text-primary text-4xl mt-8 font-semibold mb-4">
                 Profile
             </h1>
             <div className="max-w-md mx-auto">
-                {profile && (
-                    <h2 className="text-center bg-success p-4 rounded-lg text-white font-semibold">
-                        Profile saved!
-                    </h2>
-                )}
-                {saving && (
-                    <h2 className="text-center bg-warning p-4 rounded-lg text-white font-semibold">
-                        Saving...
-                    </h2>
-                )}
+                <div className="flex justify-center ">
+                    <Image
+                        className="rounded-full w-fit h-fit mb-2"
+                        src={userImage}
+                        width={250}
+                        height={250}
+                        alt="avatar"
+                    />
+                </div>
                 <div className="flex gap-2">
-                    <div>
-                        <div className="p-2 relative h-24">
-                            <Image
-                                className="rounded w-full h-full mb-2"
-                                src={userImage}
-                                width={250}
-                                height={250}
-                                alt="avatar"
-                            />
-                        </div>
-                    </div>
                     <form className="grow" onSubmit={handleSubmit}>
                         <label>Name</label>
                         <input
@@ -161,7 +169,9 @@ export default function ProfilePage() {
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                         />
-                        <button type="submit">Save</button>
+                        <button type="submit" className="w-full">
+                            Save
+                        </button>
                     </form>
                 </div>
             </div>

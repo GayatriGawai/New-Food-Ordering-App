@@ -18,16 +18,11 @@ export default function LoginPage() {
 
     return (
         <section className="mt-8">
-            <h1 className="text-center text-primary text-4xl font-semibold">
+            <h1 className="text-center mb-8 text-primary text-4xl font-semibold">
                 Login
             </h1>
 
-            <form
-                className="block max-w-xs mx-auto"
-                // method="POST"
-                // action="/api/auth"
-                onSubmit={handleSubmit}
-            >
+            <form className="block max-w-xs mx-auto" onSubmit={handleSubmit}>
                 <input
                     type="email"
                     placeholder="email"
@@ -45,7 +40,11 @@ export default function LoginPage() {
                     disabled={loginInProgress}
                 />
 
-                <button type="submit" disabled={loginInProgress}>
+                <button
+                    type="submit"
+                    className="w-full"
+                    disabled={loginInProgress}
+                >
                     Login
                 </button>
 
@@ -56,7 +55,7 @@ export default function LoginPage() {
                 <button
                     type="button"
                     onClick={() => signIn('google', { callbackUrl: '/' })}
-                    className="flex gap-2 justify-center"
+                    className="flex gap-2 justify-center w-full"
                 >
                     <Image
                         src={'/google.png'}

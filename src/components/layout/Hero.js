@@ -1,7 +1,15 @@
+'use client';
+
 import Image from 'next/image';
 import Right from '../Icons/Right';
 
 export default function Hero() {
+    function handleOrderNow(e) {
+        console.log('Order Now');
+    }
+    function handleLearnMore() {
+        console.log('Learn More');
+    }
     return (
         <section className="hero mt-4">
             <div className="py-12">
@@ -22,11 +30,17 @@ export default function Hero() {
                     your story begin here.
                 </p>
                 <div className="flex gap-4 text-sm">
-                    <button className="hover:shadow-black/25 hover:shadow-md transition-all bg-primary uppercase flex items-center rounded-full text-white gap-2 py-2 px-4">
+                    <button
+                        className="hover:shadow-black/25 hover:shadow-md transition-all bg-primary uppercase flex items-center rounded-full text-white gap-2 py-2 px-4"
+                        onClick={(e) => handleOrderNow()}
+                    >
                         Order now
                         <Right />
                     </button>
-                    <button className="flex justify-center gap-2 py-2 border-0 items-center text-gray-600 font-semibold">
+                    <button
+                        className="flex justify-center gap-2 py-2 border-0 items-center text-gray-600 font-semibold"
+                        onClick={handleLearnMore}
+                    >
                         Learn more
                         <Right />
                     </button>
