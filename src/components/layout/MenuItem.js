@@ -12,7 +12,7 @@ export default function MenuItem() {
             <p className="text-gray-500 text-sm">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
-            <button className="hover:shadow-black/25 hover:shadow-md transition-all mt-4 bg-primary text-white rounded-full px-8 py-2">
+            <button className="hover:shadow-black/25 w-full hover:shadow-md transition-all mt-4 bg-primary text-white rounded-full px-8 py-2">
                 {' '}
                 Add to cart $12
             </button>
