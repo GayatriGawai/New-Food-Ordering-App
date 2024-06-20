@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { Categories } from '../../models/Categories';
-import { isAdmin } from '@/app/api/auth/[...nextAuth]/route';
 
 export async function POST(req) {
     mongoose.connect(process.env.MONGO_URL);
@@ -17,8 +16,6 @@ export async function GET() {
 export async function PUT(req) {
     mongoose.connect(process.env.MONGO_URL);
     const { _id, name } = await req.json();
-    if (await isAdmin()) {
-        await Categories.updateOne({ _id }, { name });
-    }
+    await Categories.updateOne({ _id }, { name });
     return Response.json(true);
 }

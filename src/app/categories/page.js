@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useProfile } from '../../components/UseProfile';
 import UserTabs from '../../components/layout/UserTabs';
 import { ToastContainer, toast } from 'react-toastify';
+
+//Always import CSS for toast {Mandatory}
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function CategoriesPage() {
@@ -26,7 +28,7 @@ export default function CategoriesPage() {
     async function handleNewCategory(e) {
         e.preventDefault();
 
-        const createionPromise = new Promise(async (resolve, reject) => {
+        const creationPromise = new Promise(async (resolve, reject) => {
             const data = { name: newCategoryName };
 
             if (editedCategory) {
@@ -49,7 +51,7 @@ export default function CategoriesPage() {
             }
         });
 
-        await toast.promise(createionPromise, {
+        await toast.promise(creationPromise, {
             loading: editedCategory
                 ? 'Updating category'
                 : 'Creating new category',
@@ -97,6 +99,7 @@ export default function CategoriesPage() {
                             {editedCategory ? 'Update' : 'Create'}
                         </button>
                         <button
+                            className="bg-red-500 text-white"
                             type="button"
                             onClick={() => {
                                 setEditedCategory(null);
