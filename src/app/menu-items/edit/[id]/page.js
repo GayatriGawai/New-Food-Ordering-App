@@ -1,27 +1,40 @@
 'use client';
-import { useProfile } from '../../../components/UseProfile';
-import UserTabs from '../../../components/layout/UserTabs';
-import { ToastContainer, toast } from 'react-toastify';
-import { useState } from 'react';
+import UserTabs from '../../../../components/layout/UserTabs';
 import Link from 'next/link';
-import Left from '../../../components/Icons/Left';
-import 'react-toastify/dist/ReactToastify.css';
+import Left from '../../../../components/Icons/Left';
+import { ToastContainer, toast } from 'react-toastify';
+import { useProfile } from '../../../../components/UseProfile';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { redirect } from 'next/navigation';
 
-export default function NewMenuItemPage() {
+export default function EditMenuItemPage() {
+    const { id } = useParams();
     const { loading, data } = useProfile();
     const [name, setName] = useState('');
     const [basePrice, setBasePrice] = useState('');
     const [description, setDescription] = useState('');
     const [redirectToMenu, setRedirectToMenu] = useState(false);
 
+    useEffect(() => {
+        console.log({ id });
+        fetch('/api/menu-items').then((res) => {
+            res.json().then((items) => {
+                const item = items.find((i) => i._id === id);
+                setName(item.name);
+                setBasePrice(item.basePrice);
+                setDescription(item.description);
+            });
+        });
+    }, []);
+
     async function handleFormSubmit(e) {
         e.preventDefault();
-        const data = { name, description, basePrice };
+        const data = { name, description, basePrice, _id: id };
 
         const savingPromise = new Promise(async (resolve, reject) => {
             const response = await fetch('/api/menu-items', {
-                method: 'POST',
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
@@ -33,9 +46,9 @@ export default function NewMenuItemPage() {
             }
         });
         await toast.promise(savingPromise, {
-            loading: `Saving ${e.target.value}`,
-            success: 'Item saved',
-            error: 'Unable to save the Item',
+            loading: `Updating ${e.target.value}`,
+            success: 'Item updated',
+            error: 'Unable to update the Item',
         });
         setRedirectToMenu(true);
     }
@@ -94,7 +107,7 @@ export default function NewMenuItemPage() {
                         />
 
                         <button type="submit" className="w-full button">
-                            Save
+                            Update
                         </button>
                     </div>
                 </div>
