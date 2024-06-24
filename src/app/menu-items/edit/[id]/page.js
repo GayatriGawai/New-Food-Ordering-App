@@ -7,13 +7,12 @@ import { useProfile } from '../../../../components/UseProfile';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { redirect } from 'next/navigation';
+import MenuItemForm from '../../../../components/layout/MenuItemForm';
 
 export default function EditMenuItemPage() {
     const { id } = useParams();
     const { loading, data } = useProfile();
-    const [name, setName] = useState('');
-    const [basePrice, setBasePrice] = useState('');
-    const [description, setDescription] = useState('');
+    const [menuItem, setMenuItem] = useState(null);
     const [redirectToMenu, setRedirectToMenu] = useState(false);
 
     useEffect(() => {
@@ -21,16 +20,14 @@ export default function EditMenuItemPage() {
         fetch('/api/menu-items').then((res) => {
             res.json().then((items) => {
                 const item = items.find((i) => i._id === id);
-                setName(item.name);
-                setBasePrice(item.basePrice);
-                setDescription(item.description);
+                setMenuItem(item);
             });
         });
     }, []);
 
-    async function handleFormSubmit(e) {
+    async function handleFormSubmit(e, data) {
         e.preventDefault();
-        const data = { name, description, basePrice, _id: id };
+        data = { ...data, _id: id };
 
         const savingPromise = new Promise(async (resolve, reject) => {
             const response = await fetch('/api/menu-items', {
@@ -74,44 +71,7 @@ export default function EditMenuItemPage() {
                     Show all menu items
                 </Link>
             </div>
-            <form className="mt-8 max-w-md mx-auto" onSubmit={handleFormSubmit}>
-                <div className="flex items-start gap-4">
-                    {/*
-                    Will implement a dropzone for this
-                    <div>Image</div>
-                    */}
-                    <div className="grow">
-                        <label>Item name</label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                        <div className="flex gap-1">
-                            <label>Description</label>
-                            <p className="text-red-500 italic text-xs">
-                                eg. Indegridients
-                            </p>
-                        </div>
-                        <input
-                            type="text"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                        <label>Base Price</label>
-
-                        <input
-                            type="text"
-                            value={basePrice}
-                            onChange={(e) => setBasePrice(e.target.value)}
-                        />
-
-                        <button type="submit" className="w-full button">
-                            Update
-                        </button>
-                    </div>
-                </div>
-            </form>
+            <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
         </section>
     );
 }

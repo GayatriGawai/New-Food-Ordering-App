@@ -62,6 +62,27 @@ export default function CategoriesPage() {
         });
     }
 
+    async function handleDelete(_id) {
+        const promise = new Promise(async (resolve, reject) => {
+            const response = await fetch('/api/categories?_id=' + _id, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                resolve();
+            } else {
+                reject();
+            }
+        });
+
+        await toast.promise(promise, {
+            loading: 'Deleting...',
+            success: 'Deleted',
+            error: 'Error',
+        });
+
+        fetchCategories();
+    }
+
     if (profileLoading) {
         return 'Loading user info....';
     }
@@ -113,7 +134,7 @@ export default function CategoriesPage() {
             </form>
             <div>
                 <h2 className="mt-8 text-sm text-gray-300">
-                    Available categories
+                    Existing categories
                 </h2>
 
                 {categories?.length > 0 &&
@@ -132,6 +153,12 @@ export default function CategoriesPage() {
                                     }}
                                 >
                                     Edit
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => handleDelete(c._id)}
+                                >
+                                    Delete
                                 </button>
                             </div>
                         </div>
