@@ -14,7 +14,7 @@ export default function Home() {
                     subHeader={'Our story'}
                     mainHeader={'About us'}
                 />
-                <div className="max-w-md text-sm mx-auto text-gray-400 mt-4 flex flex-col gap-4">
+                <div className="max-w-md font-semibold mx-auto mt-4 flex flex-col gap-4">
                     <p>
                         Integer non dolor euismod, blandit dolor ac, venenatis
                         ex. In hac habitasse platea dictumst. Fusce sit amet
@@ -41,10 +41,7 @@ export default function Home() {
                     mainHeader={'Contact us'}
                 />
                 <div className="mt-4">
-                    <a
-                        href="tel:+46 789 456 1320"
-                        className="underline text-gray-500"
-                    >
+                    <a href="tel:+46 789 456 1320" className="underline">
                         +46 789 456 1320
                     </a>
                 </div>

@@ -66,7 +66,10 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
                         props={extraIngredients}
                         setProps={setExtraIngredients}
                     />
-                    <button type="submit" className="w-full button">
+                    <button
+                        type="submit"
+                        className="w-full button hover:text-white"
+                    >
                         Save
                     </button>
                 </div>

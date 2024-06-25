@@ -14,9 +14,9 @@ export default function Header() {
     }
 
     return (
-        <div>
+        <div className="bg-gray-600 bg-opacity-40 sticky top-0 w-full p-4">
             <header className="flex items-center justify-between">
-                <nav className="flex  items-center gap-4 text-gray-400 font-semibold">
+                <nav className="flex  items-center gap-4 font-semibold">
                     <Link className="text-primary font-bold text-2xl" href="/">
                         OUT
                     </Link>
@@ -33,18 +33,18 @@ export default function Header() {
                         Contact
                     </Link>
                 </nav>
-                <nav className="flex items-center gap-4 text-gray-500 font-semibold">
+                <nav className="flex items-center gap-4 font-semibold">
                     {status === 'authenticated' && (
                         <Link
                             href={'/profile'}
-                            className="whitespace-nowrap text-primary py-2 px-8 hover:text-black hover:underline"
+                            className="border rounded-full whitespace-nowrap bg-primary py-2 px-8 hover:shadow-md transition-all hover:shadow-black/25  hover:text-white hover:underline"
                         >
                             Hello, {userName}!
                         </Link>
                     )}
                     {status === 'authenticated' && (
                         <button
-                            className="bg-primary py-2 px-8 text-white rounded-full hover:shadow-black/25 hover:shadow-md transition-all"
+                            className="py-2 px-8 rounded-full hover:shadow-black/25 hover:shadow-md transition-all"
                             onClick={() => signOut()}
                         >
                             Logout
@@ -54,7 +54,7 @@ export default function Header() {
                         <>
                             <Link href={'/login'}>Login</Link>
                             <Link
-                                className="bg-primary py-2 px-8 text-white rounded-full hover:shadow-black/25 hover:shadow-md transition-all"
+                                className="bg-primary py-2 px-8 rounded-full hover:shadow-black/25 hover:shadow-md transition-all"
                                 href={'/register'}
                             >
                                 Register

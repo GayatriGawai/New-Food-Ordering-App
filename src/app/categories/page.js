@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useProfile } from '../../components/UseProfile';
 import UserTabs from '../../components/layout/UserTabs';
 import { ToastContainer, toast } from 'react-toastify';
+import Trash from '../../components/Icons/Trash';
 
 //Always import CSS for toast {Mandatory}
 import 'react-toastify/dist/ReactToastify.css';
@@ -116,12 +117,15 @@ export default function CategoriesPage() {
                     </div>
 
                     <div className="pb-2 flex gap-2">
-                        <button type="submit" className="border border-primary">
+                        <button
+                            type="submit"
+                            className="border rounded-full whitespace-nowrap bg-primary py-2 px-8 hover:shadow-md transition-all hover:shadow-black/25  hover:text-white hover:underline"
+                        >
                             {editedCategory ? 'Update' : 'Create'}
                         </button>
                         <button
-                            className="bg-red-500 text-white"
                             type="button"
+                            className="transition-all border rounded-full hover:shadow-md hover:shadow-black/25"
                             onClick={() => {
                                 setEditedCategory(null);
                                 setNewCategoryName('');
@@ -133,7 +137,7 @@ export default function CategoriesPage() {
                 </div>
             </form>
             <div>
-                <h2 className="mt-8 text-sm text-gray-300">
+                <h2 className="mt-8 text-sm font-semibold">
                     Existing categories
                 </h2>
 
@@ -147,6 +151,7 @@ export default function CategoriesPage() {
                             <div className="flex gap-1">
                                 <button
                                     type="button"
+                                    className="text-blue-500 border-0 font-normal"
                                     onClick={() => {
                                         setEditedCategory(c);
                                         setNewCategoryName(c.name);
@@ -156,9 +161,10 @@ export default function CategoriesPage() {
                                 </button>
                                 <button
                                     type="button"
+                                    className="text-primary border-0 font-normal mb-2 px-2"
                                     onClick={() => handleDelete(c._id)}
                                 >
-                                    Delete
+                                    <Trash />
                                 </button>
                             </div>
                         </div>

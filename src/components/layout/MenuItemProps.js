@@ -72,7 +72,7 @@ export default function MenuItemProps({ name, addLabel, props, setProps }) {
                             <div>
                                 <button
                                     type="button"
-                                    className="bg-red-500 text-white font-normal mb-2 px-2"
+                                    className="bg-red-500  font-normal mb-2 px-2"
                                     onClick={() => removeProp(index)}
                                 >
                                     <Trash />

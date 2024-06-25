@@ -98,7 +98,7 @@ export default function ProfilePage() {
             <h1 className="text-center text-primary text-4xl mt-8 font-semibold mb-4">
                 Profile
             </h1>
-            <div className="max-w-md mx-auto">
+            <div className="max-w-md mx-auto paper">
                 <div className="flex justify-center ">
                     <Image
                         className="rounded-full w-fit h-fit mb-2"
@@ -118,7 +118,7 @@ export default function ProfilePage() {
                             onChange={(e) => setUserName(e.target.value)}
                         />
                         <label>Email</label>{' '}
-                        <p className="text-xs text-red-500 italic">
+                        <p className="text-xs text-red-500">
                             *email address can&apos;t be changed
                         </p>
                         <input
@@ -169,7 +169,10 @@ export default function ProfilePage() {
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                         />
-                        <button type="submit" className="w-full">
+                        <button
+                            type="submit"
+                            className="border rounded-full whitespace-nowrap bg-primary py-2 px-8 hover:shadow-md w-full transition-all hover:shadow-black/25  hover:text-white hover:underline"
+                        >
                             Save
                         </button>
                     </form>
