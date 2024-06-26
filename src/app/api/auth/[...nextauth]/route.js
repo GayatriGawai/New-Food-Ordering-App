@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { getServerSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
@@ -6,6 +6,7 @@ import clientPromise from '../../../../libs/mongoConnect';
 import mongoose from 'mongoose';
 import { User } from '../../../models/User';
 import bcrypt from 'bcrypt';
+import { userInfo } from 'os';
 
 export const authOptions = {
     secret: process.env.SECRET,
@@ -14,6 +15,7 @@ export const authOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            // allowDangerousEmailAccountLinking: true,
         }),
         CredentialsProvider({
             name: 'Credentials',
@@ -45,6 +47,16 @@ export const authOptions = {
         }),
     ],
 };
+
+export async function isAdmin() {
+    const session = await getServerSession(authOptions);
+    const userEmail = session?.user?.email;
+
+    if (!userEmail) {
+        return false;
+    }
+    return userInfo.admin;
+}
 
 const handler = NextAuth(authOptions);
 

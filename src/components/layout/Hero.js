@@ -1,23 +1,25 @@
 'use client';
-
-import Image from 'next/image';
 import Right from '../Icons/Right';
 
 export default function Hero() {
     function handleOrderNow(e) {
-        console.log('Order Now');
+        console.log(
+            'Order Now is pressed please implement the functionality in layout/Hero.js'
+        );
     }
     function handleLearnMore() {
-        console.log('Learn More');
+        console.log(
+            'Learn More is pressed please implement the functionality in layout/Hero.js'
+        );
     }
     return (
-        <section className="hero mt-4">
-            <div className="py-12">
+        <section className="hero whitePaper mb-8 max-w-4xl mt-4 ">
+            <div className="py-12 ">
                 <h1 className="text-4xl">
                     Where Every Sip Tells a{' '}
-                    <span className="text-primary font-semibold">Story...</span>
+                    <span className="font-semibold">Story...</span>
                 </h1>
-                <p className="my-4 text-gray-500 text-sm indent-16">
+                <p className="my-4 font-semibold indent-16">
                     Welcome to OUT<sub>(Once Upon a Time)</sub>, a cozy haven
                     where every cup of coffee is the beginning of a new story.
                     Nestled in the heart of the city, our cafe combines the
@@ -31,31 +33,20 @@ export default function Hero() {
                 </p>
                 <div className="flex gap-4 text-sm">
                     <button
-                        className="hover:shadow-black/25 hover:shadow-md transition-all bg-primary uppercase flex items-center rounded-full text-white gap-2 py-2 px-4"
+                        className="hover:text-white hover:shadow-black/25 hover:shadow-md transition-all bg-primary uppercase flex items-center rounded-full gap-2 py-2 px-4"
                         onClick={(e) => handleOrderNow()}
                     >
                         Order now
                         <Right />
                     </button>
                     <button
-                        className="flex justify-center gap-2 py-2 border-0 items-center text-gray-600 font-semibold"
+                        className="text-gray-700 hover:shadow-md transition-all flex justify-center gap-2 py-2 border-0 items-center font-semibold"
                         onClick={handleLearnMore}
                     >
                         Learn more
                         <Right />
                     </button>
                 </div>
-            </div>
-
-            <div className="relative">
-                <Image
-                    src={'/pizza.png'}
-                    layout={'fill'}
-                    objectFit={'contain'}
-                    alt={'pizza'}
-                    // width={100}
-                    // height={100}
-                ></Image>
             </div>
         </section>
     );

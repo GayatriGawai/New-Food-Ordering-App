@@ -14,11 +14,11 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className={roboto.className}>
-                <main className="max-w-4xl mx-auto p-4">
+                <main className="mx-auto flex-col">
                     <AppProvider>
                         <Header />
                         {children}
-                        <footer className="border-t p-8 text-center text-xs text-gray-500 mt-16">
+                        <footer className="border-t p-8 text-right text-xs font-semibold mt-16">
                             {' '}
                             &copy; 2024 All rights are reserved
                         </footer>
